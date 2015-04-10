@@ -1,0 +1,46 @@
+﻿@model IEnumerable<EmployeeApplication.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Employee List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateEmployee")
+</p>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.EmployeeName)</th>
+        <th>@Html.DisplayNameFor(model => model.Salary)</th>
+        <th>Department</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.EmployeeName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Salary)</td>
+            <td>
+                @if (ViewBag.department != null)
+                {
+                    foreach (var m in @ViewBag.Department)
+                    {
+                        if (item.DepartmentId == m.DepartmentId)
+                        {
+                            @m.DepartmentName
+                        }
+                    }
+                }
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }) |
+                @Html.ActionLink("Details", "EmployeeDetails", new { id = item.EmployeeId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId })
+            </td>
+        </tr>
+    }
+
+</table>

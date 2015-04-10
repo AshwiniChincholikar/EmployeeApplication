@@ -1,0 +1,25 @@
+﻿@model EmployeeApplication.Models.Department
+@{
+    ViewBag.Title = "DeparmentEmployeesList";
+}
+<div>
+    <h3>Employees List in Department : @Html.DisplayFor(model => model.DepartmentName)</h3>
+</div>
+<br />
+<div>
+
+    <table class="table">
+        <tr>
+            <th>Employee Name</th>
+            <th>Department</th>
+        </tr>
+        @foreach (var e in Model.EmployeeList)
+        {
+            <tr>
+                <td>@e.EmployeeName</td>
+                <td>@Html.DisplayFor(model => model.DepartmentName)</td>
+            </tr>
+        }
+    </table>
+</div>
+@Html.ActionLink("Back to Departments", "Index")

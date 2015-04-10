@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Error";
+}
+
+@if (ViewBag.ErrorMessage == null)
+{
+    <h2>An error occurred while processing your request.</h2>
+}
+
+<h3>@ViewBag.Errormessage</h3>
+<br />
+<p>
+    To go back click
+    @if (ViewBag.link != null)
+    {
+        <a href="@ViewBag.Link">here</a>
+    }
+</p>
