@@ -92,6 +92,11 @@ namespace EmployeeApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);                
             }
+            var employeeList = db.Employee.Where(e => e.DepartmentId == department.Id);
+            foreach (var item in employeeList)
+            {
+                db.Employee.Remove(item);
+            }
             db.Department.Remove(dep);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -106,7 +111,7 @@ namespace EmployeeApplication.Controllers
                 ViewBag.Link = link;
                 return View("Error");
             }
-            Department department = db.Department.Where(d => d.DepartmentId == id).ToList().First();
+            Department department = db.Department.Where(d => d.Id == id).ToList().First();
             department.EmployeeList = list;
             return View(department);
         }

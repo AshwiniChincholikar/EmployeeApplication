@@ -9,12 +9,12 @@ namespace EmployeeApplication.Models
     public class Employee
     {
         [Key]
-        public int EmployeeId { get; set; }
+        public int Id { get; set; }
 
         public string EmployeeName { get; set; }
         public int Salary { get; set; }
         public int DepartmentId { get; set; }
-        public virtual ICollection<Department> Department { get; set; }
+        public virtual Department Department { get; set; }
 
 
     }

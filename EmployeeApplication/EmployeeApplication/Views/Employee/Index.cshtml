@@ -23,11 +23,11 @@
             <td>@Html.DisplayFor(modelItem => item.EmployeeName)</td>
             <td>@Html.DisplayFor(modelItem => item.Salary)</td>
             <td>
-                @if (ViewBag.department != null)
+                @if (ViewBag.Dep != null)
                 {
-                    foreach (var m in @ViewBag.Department)
+                    foreach (var m in @ViewBag.Dep)
                     {
-                        if (item.DepartmentId == m.DepartmentId)
+                        if (item.DepartmentId == m.Id)
                         {
                             @m.DepartmentName
                         }
@@ -36,9 +36,9 @@
             </td>
             
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }) |
-                @Html.ActionLink("Details", "EmployeeDetails", new { id = item.EmployeeId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "EmployeeDetails", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

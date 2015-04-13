@@ -16,17 +16,20 @@ namespace EmployeeApplication.Controllers
         {
             var employeeList = db.Employee.ToList();
             var department = db.Department.ToList();
-            ViewBag.department = department;
+            ViewBag.Dep = department;
             return View("Index", employeeList);
         }
 
         public ActionResult CreateEmployee()
         {
-            List<Department> dd = db.Department.ToList();
-            Employee e = new Employee();
-            e.Department = dd;
-            ViewBag.Dep = e;
-            return View(e);
+          IEnumerable<SelectListItem> departments = db.Department
+                                                .Select(d => new SelectListItem
+                                                   {
+                                                       Value = d.Id.ToString(),
+                                                       Text = d.DepartmentName
+                                                   });
+          ViewBag.Department = departments;         
+           return View();
         }
 
         [HttpPost]
@@ -50,17 +53,28 @@ namespace EmployeeApplication.Controllers
             {
                 return HttpNotFound();
             }
-            var department = db.Department.ToList();
-            employee.Department = department;
-            ViewBag.department = department;
+            IEnumerable<SelectListItem> departments = db.Department
+                                                 .Select(d => new SelectListItem
+                                                 {
+                                                     Value = d.Id.ToString(),
+                                                     Text = d.DepartmentName
+                                                 });
+            
+            ViewBag.Department = departments;
             return View("EmployeeDetails", employee);
         }
         public ActionResult Edit(int id)
         {
-            List<Department> department = db.Department.ToList();
-            Employee employee = db.Employee.Find(id);
-            employee.Department = department;
-            ViewBag.Dep = employee;
+            Employee employee = db.Employee.Find(id);            
+            IEnumerable<SelectListItem> departments = db.Department
+                                                 .Select(d => new SelectListItem
+                                                 {
+                                                     Value = d.Id.ToString(),
+                                                     Text = d.DepartmentName,
+                                                     Selected = true
+                                                 });
+            
+            ViewBag.Department = departments;         
             return View(employee);
         }
         [HttpPost]

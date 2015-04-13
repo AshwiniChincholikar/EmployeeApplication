@@ -31,20 +31,10 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">Department</label>
-            @*@Html.LabelFor(model => model.Department.Name, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                Departments can be:
-                @if (ViewBag.Dep != null)
+                @if (ViewBag.Department != null)
                 {
-                    foreach (var item in @Model.Department)
-                    {
-                        <div>
-                            Type @item.DepartmentId for:  @item.DepartmentName
-                        </div>
-                        //         @Html.EditorFor(modelItem => item.DepartmentId, new { htmlAttributes = new { @class = "form-control" } })
-                    }
-                    @Html.EditorFor(model => model.DepartmentId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                    @Html.DropDownList("DepartmentId", (IEnumerable<SelectListItem>)ViewBag.Department, new { htmlAttributes = new { @class = "form-control" } })
                 }
             </div>
         </div>
