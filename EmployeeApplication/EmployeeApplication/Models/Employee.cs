@@ -11,6 +11,7 @@ namespace EmployeeApplication.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]        
         public string EmployeeName { get; set; }
         public int Salary { get; set; }
         public int DepartmentId { get; set; }

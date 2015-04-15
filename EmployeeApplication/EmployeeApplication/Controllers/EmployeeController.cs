@@ -22,14 +22,14 @@ namespace EmployeeApplication.Controllers
 
         public ActionResult CreateEmployee()
         {
-          IEnumerable<SelectListItem> departments = db.Department
-                                                .Select(d => new SelectListItem
-                                                   {
-                                                       Value = d.Id.ToString(),
-                                                       Text = d.DepartmentName
-                                                   });
-          ViewBag.Department = departments;         
-           return View();
+            IEnumerable<SelectListItem> departments = db.Department
+                                                  .Select(d => new SelectListItem
+                                                     {
+                                                         Value = d.Id.ToString(),
+                                                         Text = d.DepartmentName
+                                                     });
+            ViewBag.Department = departments;
+            return View();
         }
 
         [HttpPost]
@@ -59,22 +59,22 @@ namespace EmployeeApplication.Controllers
                                                      Value = d.Id.ToString(),
                                                      Text = d.DepartmentName
                                                  });
-            
+
             ViewBag.Department = departments;
             return View("EmployeeDetails", employee);
         }
         public ActionResult Edit(int id)
         {
-            Employee employee = db.Employee.Find(id);            
+            Employee employee = db.Employee.Find(id);
             IEnumerable<SelectListItem> departments = db.Department
                                                  .Select(d => new SelectListItem
                                                  {
                                                      Value = d.Id.ToString(),
                                                      Text = d.DepartmentName,
-                                                     Selected = true
+                                                     // Selected = true
                                                  });
-            
-            ViewBag.Department = departments;         
+
+            ViewBag.Department = departments;
             return View(employee);
         }
         [HttpPost]
@@ -99,16 +99,31 @@ namespace EmployeeApplication.Controllers
         public ActionResult Delete(int id)
         {
             var employee = db.Employee.Find(id);
-            return View(employee);
+            if (employee != null)
+            {
+                return View(employee);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+           
         }
 
         [HttpPost]
         public ActionResult Delete(int id, Employee employee)
         {
             var employeeToDelete = db.Employee.Find(id);
-            db.Employee.Remove(employeeToDelete);
-            db.SaveChanges();
-            return RedirectToAction("GetEmployees");
+            if (employeeToDelete != null)
+            {
+                db.Employee.Remove(employeeToDelete);
+                db.SaveChanges();
+                return RedirectToAction("GetEmployees");
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
         protected override void Dispose(bool disposing)

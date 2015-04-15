@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeApplication.Models
@@ -7,6 +8,8 @@ namespace EmployeeApplication.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
+        [DisplayName("Department Name")]
         public string DepartmentName { get; set; }
         public virtual ICollection<Employee> EmployeeList { get; set; }
     }

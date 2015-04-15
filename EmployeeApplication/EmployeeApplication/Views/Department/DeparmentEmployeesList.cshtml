@@ -2,24 +2,26 @@
 @{
     ViewBag.Title = "DeparmentEmployeesList";
 }
-<div>
-    <h3>Employees List in Department : @Html.DisplayFor(model => model.DepartmentName)</h3>
-</div>
-<br />
-<div>
+<div id="departmentEmployeeList">
+    <div>
+        <h3>Employees List in Department : @Html.DisplayFor(model => model.DepartmentName)</h3>
+    </div>
+    <br />
+    <div>
 
-    <table class="table">
-        <tr>
-            <th>Employee Name</th>
-            <th>Department</th>
-        </tr>
-        @foreach (var employee in Model.EmployeeList)
-        {
+        <table class="table">
             <tr>
-                <td>@employee.EmployeeName</td>
-                <td>@Html.DisplayFor(model => model.DepartmentName)</td>
+                <th>Employee Name</th>
+                <th>Department</th>
             </tr>
-        }
-    </table>
+            @foreach (var employee in Model.EmployeeList)
+            {
+                <tr>
+                    <td>@employee.EmployeeName</td>
+                    <td>@Html.DisplayFor(model => model.DepartmentName)</td>
+                </tr>
+            }
+        </table>
+    </div>
+    @Html.ActionLink("Back to Departments", "Index")
 </div>
-@Html.ActionLink("Back to Departments", "Index")

@@ -5,52 +5,49 @@
 }
 
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("CreateEmployee", "Employee", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "createEmployee", InsertionMode = InsertionMode.Replace }))
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Employee</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+    <div id="createEmployee">
+        <div class="form-horizontal">
+            <h4>Employee</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Department</label>
-            <div class="col-md-10">
-                @if (ViewBag.Department != null)
-                {
-                    @Html.DropDownList("DepartmentId", (IEnumerable<SelectListItem>)ViewBag.Department, new { htmlAttributes = new { @class = "form-control" } })
-                }
+            <div class="form-group">
+                <label class="control-label col-md-2">Department</label>
+                <div class="col-md-10">
+                    @if (ViewBag.Department != null)
+                    {
+                        @Html.DropDownList("DepartmentId", (IEnumerable<SelectListItem>)ViewBag.Department, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "GetEmployees")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

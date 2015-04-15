@@ -1,33 +1,42 @@
 ﻿@model IEnumerable<EmployeeApplication.Models.Department>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Employee Application";
 }
 
-<h2>Index</h2>
+    <h2>List Of Departments</h2>
 
-<p>
-    @Html.ActionLink("Create New", "AddDepartment")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentName)
-        </th>
-        <th></th>
-    </tr>
+    <div>
+        <p>
+            @Html.ActionLink("Create New", "AddDepartment")
+        </p>
+    </div>
+   
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepartmentName)
+                </th>
+                <th>Action</th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "DeleteDepartment", new { id = item.Id }) |
-            @Html.ActionLink("List Of Employees", "DeparmentEmployeesList", new { id = item.Id })
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                    </td>
+                    <td>
+                        @*@Ajax.ActionLink("Edit", "Edit", new { id = item.Id },new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "list", InsertionMode = InsertionMode.Replace })|
+                        @Ajax.ActionLink("Delete", "DeleteDepartment", new { id = @item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "list", InsertionMode = InsertionMode.Replace })|
+                        @Ajax.ActionLink("List Of Employees", "DeparmentEmployeesList", new { id = @item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "list", InsertionMode = InsertionMode.Replace })*@
 
-</table>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "DeleteDepartment", new { id = item.Id }) |
+                        @Html.ActionLink("List Of Employees", "DeparmentEmployeesList", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+   

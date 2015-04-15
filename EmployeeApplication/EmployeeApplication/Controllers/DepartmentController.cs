@@ -4,18 +4,17 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Net;
 using System;
-using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace EmployeeApplication.Controllers
 {
     public class DepartmentController : Controller
     {
         private EmployeeContext db = new EmployeeContext();
-        // GET: Department
+
         public ActionResult Index()
         {
-            var department = db.Department.ToList();
-            return View(department);
+            return View(db.Department.ToList());
         }
 
         public ActionResult AddDepartment()
@@ -29,10 +28,22 @@ namespace EmployeeApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Department.Add(deptartment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var list = db.Department.Where(d => d.DepartmentName.ToLower().Equals(deptartment.DepartmentName)).ToList();
+
+                if (list.Count() == 0 && Request.IsAjaxRequest())
+                {
+                    db.Department.Add(deptartment);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Department with this name already exists.");
+                    return View(deptartment);
+                }
             }
+
             return View(deptartment);
         }
 
@@ -43,6 +54,7 @@ namespace EmployeeApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var department = db.Department.Find(id);
+
             return View(department);
         }
 
@@ -75,11 +87,11 @@ namespace EmployeeApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var department = db.Department.Find(id); 
+            var department = db.Department.Find(id);
             if (department == null)
             {
                 return HttpNotFound();
-            }            
+            }
             return View(department);
         }
 
@@ -90,15 +102,23 @@ namespace EmployeeApplication.Controllers
             var dep = db.Department.Find(id);
             if (dep == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);                
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var employeeList = db.Employee.Where(e => e.DepartmentId == department.Id);
-            foreach (var item in employeeList)
+            try
             {
-                db.Employee.Remove(item);
+                foreach (var item in employeeList)
+                {
+                    db.Employee.Remove(item);
+                }
+                db.Department.Remove(dep);
+                db.SaveChanges();
             }
-            db.Department.Remove(dep);
-            db.SaveChanges();
+            catch (DbUpdateConcurrencyException ex)
+            {
+                ex.Entries.Single().Reload();
+                ModelState.AddModelError("", "Unable to Delete");
+            }
             return RedirectToAction("Index");
         }
         public ActionResult DeparmentEmployeesList(int id)
@@ -118,7 +138,10 @@ namespace EmployeeApplication.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            if (disposing)
+            {
+                db.Dispose();
+            }
             base.Dispose(disposing);
         }
     }
