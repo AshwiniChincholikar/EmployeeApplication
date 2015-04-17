@@ -3,40 +3,35 @@
 @{
     ViewBag.Title = "Employee Application";
 }
-
+<div id="placeHolder">
     <h2>List Of Departments</h2>
 
     <div>
         <p>
-            @Html.ActionLink("Create New", "AddDepartment")
+            @Ajax.ActionLink("Create New", "AddDepartment", new AjaxOptions { HttpMethod = "get", UpdateTargetId = "placeHolder", InsertionMode = InsertionMode.Replace })
         </p>
     </div>
-   
-        <table class="table">
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.DepartmentName)
-                </th>
-                <th>Action</th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    @Ajax.ActionLink("Edit", "Edit", new { id = item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "placeHolder", InsertionMode = InsertionMode.Replace })|
+                    @Ajax.ActionLink("Delete", "DeleteDepartment", new { id = @item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "placeHolder", InsertionMode = InsertionMode.Replace })|
+                    @Ajax.ActionLink("List Of Employees", "DeparmentEmployeesList", new { id = @item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "placeHolder", InsertionMode = InsertionMode.Replace })
+                </td>
             </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepartmentName)
-                    </td>
-                    <td>
-                        @*@Ajax.ActionLink("Edit", "Edit", new { id = item.Id },new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "list", InsertionMode = InsertionMode.Replace })|
-                        @Ajax.ActionLink("Delete", "DeleteDepartment", new { id = @item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "list", InsertionMode = InsertionMode.Replace })|
-                        @Ajax.ActionLink("List Of Employees", "DeparmentEmployeesList", new { id = @item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "list", InsertionMode = InsertionMode.Replace })*@
-
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "DeleteDepartment", new { id = item.Id }) |
-                        @Html.ActionLink("List Of Employees", "DeparmentEmployeesList", new { id = item.Id })
-                    </td>
-                </tr>
-            }
-
-        </table>
-   
+        }
+    </table>
+</div>

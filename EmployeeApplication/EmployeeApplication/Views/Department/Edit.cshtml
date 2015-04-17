@@ -33,6 +33,6 @@
     }
 
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Ajax.ActionLink("Back To Index", "Index", "Department", new AjaxOptions { HttpMethod = "get", UpdateTargetId = "editDepartment", InsertionMode = InsertionMode.Replace })
     </div>
 </div>

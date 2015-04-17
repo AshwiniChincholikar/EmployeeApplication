@@ -23,5 +23,5 @@
             }
         </table>
     </div>
-    @Html.ActionLink("Back to Departments", "Index")
+    @Ajax.ActionLink("Back To Departments", "Index", "Department", new AjaxOptions { HttpMethod = "get", UpdateTargetId = "departmentEmployeeList", InsertionMode = InsertionMode.Replace })
 </div>

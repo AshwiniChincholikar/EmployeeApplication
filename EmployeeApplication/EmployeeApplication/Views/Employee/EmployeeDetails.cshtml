@@ -3,37 +3,37 @@
 @{
     ViewBag.Title = "EmployeeDetails";
 }
+<div id="employeDetails">
+    <h2>EmployeeDetails</h2>
 
-<h2>EmployeeDetails</h2>
+    <div>
+        <h4>Employee</h4>
+        <hr />
+        <dl class="dl-horizontal">
 
-<div>
-    <h4>Employee</h4>
-    <hr />
-    <dl class="dl-horizontal">
+            <dt>@Html.DisplayNameFor(model => model.EmployeeName)</dt>
+            <dd>@Html.DisplayFor(model => model.EmployeeName)</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.EmployeeName)</dt>
-        <dd>@Html.DisplayFor(model => model.EmployeeName)</dd>
+            <dt>@Html.DisplayNameFor(model => model.Salary)</dt>
+            <dd>@Html.DisplayFor(model => model.Salary)</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.Salary)</dt>
-        <dd>@Html.DisplayFor(model => model.Salary)</dd>
-
-        <dt>Department</dt>
-        <dd>
-            @if (ViewBag.Department != null)
-            {
-                foreach (var m in @ViewBag.Department)
+            <dt>Department</dt>
+            <dd>
+                @if (ViewBag.Department != null)
                 {
-                    if (Model.DepartmentId.ToString() == m.Value)
+                    foreach (var m in @ViewBag.Department)
                     {
-                        @m.Text;
+                        if (Model.DepartmentId.ToString() == m.Value)
+                        {
+                            @m.Text;
                         }
                     }
                 }
-
-        </dd>
-    </dl>
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @Ajax.ActionLink("Edit", "Edit", "Employee", new { id = Model.Id }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "employeDetails" }) |
+        @Ajax.ActionLink("Back to List", "GetEmployees", "Employee", new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "employeDetails" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "GetEmployees")
-</p>

@@ -3,44 +3,44 @@
 @{
     ViewBag.Title = "Employee Application";
 }
+<div id="employeeList">
+    <h2>Employee List</h2>
 
-<h2>Employee List</h2>
-
-<p>
-    @Html.ActionLink("Create New", "CreateEmployee")
-</p>
-<table class="table">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.EmployeeName)</th>
-        <th>@Html.DisplayNameFor(model => model.Salary)</th>
-        <th>Department</th>
-        <th>Action</th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <p>
+       @Ajax.ActionLink("Create New", "CreateEmployee", "Employee", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "employeeList", InsertionMode = InsertionMode.Replace })
+    </p>
+    <table class="table">
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.EmployeeName)</td>
-            <td>@Html.DisplayFor(modelItem => item.Salary)</td>
-            <td>
-                @if (ViewBag.Dep != null)
-                {
-                    foreach (var m in @ViewBag.Dep)
+            <th>@Html.DisplayNameFor(model => model.EmployeeName)</th>
+            <th>@Html.DisplayNameFor(model => model.Salary)</th>
+            <th>Department</th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.EmployeeName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Salary)</td>
+                <td>
+                    @if (ViewBag.Dep != null)
                     {
-                        if (item.DepartmentId == m.Id)
+                        foreach (var m in @ViewBag.Dep)
                         {
-                            @m.DepartmentName
+                            if (item.DepartmentId == m.Id)
+                            {
+                                @m.DepartmentName
+                            }
                         }
                     }
-                }
-            </td>
-            
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "EmployeeDetails", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
+                </td>
 
-</table>
+                <td>
+                    @Ajax.ActionLink("Edit", "Edit", "Employee", new { id = item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "employeeList", InsertionMode = InsertionMode.ReplaceWith }) |
+                    @Ajax.ActionLink("Details", "EmployeeDetails", "Employee", new { id = item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "employeeList", InsertionMode = InsertionMode.ReplaceWith }) |
+                    @Ajax.ActionLink("Delete", "Delete", "Employee", new { id = item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "employeeList", InsertionMode = InsertionMode.ReplaceWith })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

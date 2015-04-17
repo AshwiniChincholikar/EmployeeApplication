@@ -23,7 +23,7 @@
             </div>
         </div>
         <div>
-            @Html.ActionLink("Back To Index","Index")
+            @Ajax.ActionLink("Back To Index", "Index", "Department", new AjaxOptions { HttpMethod = "get", UpdateTargetId = "addDepartment", InsertionMode = InsertionMode.Replace })
         </div>
     </div>
 }

@@ -13,10 +13,6 @@
 
             <dt>@Html.DisplayNameFor(model => model.Salary)</dt>
             <dd>@Html.DisplayFor(model => model.Salary)</dd>
-
-            @*<dt>@Html.DisplayNameFor(model => model.DepartmentId)</dt>
-                <dd>@Html.DisplayFor(model => model.DepartmentId)</dd>*@
-
         </dl>
 
         @using (Ajax.BeginForm("Delete", "Employee", new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "deleteEmployee" }))
@@ -25,7 +21,7 @@
 
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "GetEmployees")
+                @Ajax.ActionLink("Back to List", "GetEmployees", "Employee", new AjaxOptions { HttpMethod = "get", UpdateTargetId = "deleteEmployee", InsertionMode = InsertionMode.Replace })
             </div>
         }
     </div>

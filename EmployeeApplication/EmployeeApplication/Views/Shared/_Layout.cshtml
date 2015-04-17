@@ -21,16 +21,16 @@
              </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @* <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        @*<li>@Html.ActionLink("About", "About", "Home")</li>
                          <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                    <li>@Ajax.ActionLink("Employees", "GetEmployees", "Employee", new AjaxOptions { HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "placeHolder" })</li>
-                    <li>@Ajax.ActionLink("Departments", "Index", "Department", new AjaxOptions { HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "placeHolder" })</li>
+                    <li>@Html.ActionLink("Employees", "GetEmployees", "Employee")</li>
+                    <li>@Html.ActionLink("Departments", "Index", "Department")</li>
                 </ul>
             </div>
         </div>       
     </div>   
-    <div id="placeHolder"><p><p class="lead">Welcome</p></p></div>
+   
     <div class="container body-content">
         @RenderBody()
        <hr />           

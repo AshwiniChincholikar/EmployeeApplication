@@ -23,11 +23,8 @@
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="btn btn-default" />
             </div>            
-        }
-       
+        }   
+        @Ajax.ActionLink("Back To Index", "Index", "Department", new AjaxOptions { HttpMethod = "get", UpdateTargetId = "deleteDepartment", InsertionMode = InsertionMode.Replace })
+    
     </div>
-    <div>
-        <p>
-            @Html.ActionLink("Back to List", "Index")
-        </p>
-    </div>
+   

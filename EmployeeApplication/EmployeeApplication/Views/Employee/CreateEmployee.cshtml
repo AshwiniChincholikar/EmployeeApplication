@@ -4,11 +4,11 @@
     ViewBag.Title = "CreateEmployee";
 }
 
+<div id="createEmployee">
+    @using (Ajax.BeginForm("CreateEmployee", "Employee", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "createEmployee", InsertionMode = InsertionMode.Replace }))
+    {
+        @Html.AntiForgeryToken()
 
-@using (Ajax.BeginForm("CreateEmployee", "Employee", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "createEmployee", InsertionMode = InsertionMode.Replace }))
-{
-    @Html.AntiForgeryToken()
-    <div id="createEmployee">
         <div class="form-horizontal">
             <h4>Employee</h4>
             <hr />
@@ -45,9 +45,9 @@
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "GetEmployees")
+    <div>
+        @Ajax.ActionLink("Back to List", "GetEmployees", "Employee", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "createEmployee", InsertionMode = InsertionMode.Replace })
+    </div>
 </div>

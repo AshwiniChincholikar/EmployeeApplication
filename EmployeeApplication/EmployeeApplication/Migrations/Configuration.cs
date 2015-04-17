@@ -10,7 +10,7 @@ namespace EmployeeApplication.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "EmployeeApplication.DAL.EmployeeContext";
         }
 
